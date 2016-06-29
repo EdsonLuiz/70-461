@@ -257,3 +257,71 @@ After this lesson, you will be able to:
 - Choose a type for your keys.
 - Work with date and time, in addition to character data.
 - Work with the CASE expression and related functions.
+
+## Choosing the Appropriate Data Type
+Categorias:
+- Exact numeric [INT, NUMERIC]
+- Character string [CHAR, VARCHAR]
+- Unicode character string [NCHAR, NVARCHAR]
+- Approximate numeric [FLOAT, REAL]
+- Binary string [BINARY, VARBINARY]
+- Date and time [DATE, TIME, DATETIME2, SMALLDATETIME, DATETIME, DATETIMEOFFSET]
+
+## Choosing the Appropriate Data Type
+Um dos grandes pontos fortes do modelo relacional é a importância que atribui à aplicação de integridade de dados como parte do próprio modelo, em vários níveis.
+
+O tipo de dados (**data type**) será uma restrição, ele vai ter um certo dompinio de valores compatíveis e não vai permitir valores fora deste domínio.
+
+Sempre defina explicitamente o tamanho dos tipos character (CHAR, VARCHAR).
+
+Regular character types (CHAR, VARCHAR) VS. Unicode types (NCHAR, NVARCHAR). O primeiro usa 1 byte por character e tem suporte somente a linguagem padrão. O segundo usa 2 bytes por character e suporte a multiplas linguagens.
+
+Quando definir atributos que representam a mesma coisa em tabelas diferentes, especialmente atributos utilizados em colunas **JOINS**, mantenha os tipos (types) consistentes para evitar problemas de performance.
+
+Quando uma expressão envolve elementos com diferentes tipos, SQL Server precisa aplicar conversão implícita quando possível, e isso pode resultar em uma perda de desempenho.
+
+Para indicar tipos literais (literal types) lembre-se de utilizar as formas corretas a seguir:
+- literals of regular character strings: ``` 'ABC' ```
+- literals of Unicode character strings: ``` N'ABC' ```
+
+Para forçar um valor literal ser de um determinado *type* deve ser aplicada uma conversão explicita utilizando as funções:
+- CAST
+- CONVERT
+- PARSE
+- TRY_CAST
+- TRY_CONVERT
+- TRY_PARSE
+
+Funções sem TRY falham se a conversão não for possível. Funções COM TRY retornam NULL se a conversão não for possível.
+
+CAST: deve ser indicada a expressão e o tipo (type) alvo.
+```sql
+SELECT CAST(1 AS BIGINT);
+```
+
+CONVERT: Possuí um terceiro argumento representando o estilo da conversão
+```sql
+CONVERT(DATE, '1/2/2012', 101)
+#style 101 representing the United States standard
+```
+
+PARSE: Pode ser indicada a *culture* suportada pelo .NET Framework.
+```sql
+PARSE('1/2/2012' AS DATE USING 'en-US')
+# parses the input literal as a DATE by using a United States English culture.
+```
+
+Ao utilizar expressões que envolvem *operandos* de diferentes tipos o SQL Server converte o *operando* com o tipo de dado de menor precedência para o tipo de dados do *operando* com maior precedência.
+
+```
+1 + '1' = 2
+INT tem prioridade sobre VARCHAR
+```
+
+Se os *operandos* forem do mesmo tipo o resultado será do mesmo tipo dos *operandos*.
+```
+5 / 2 = 2
+resultado INT 2 e não NUMERIC 2.5
+o correto é realizar uma conversão explicita nos operandos
+CAST(col1 AS NUMERIC(12, 2)) / CAST(col2 AS NUMERIC(12, 2)).
+```
