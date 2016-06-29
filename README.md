@@ -1,10 +1,10 @@
-#Anotações para 70-461
+# Anotações para 70-461
 Anotações para certificação 70-461
-#Chapter1
+# Chapter1
 
 Lesson 1: Understanding the Foundations of T-SQL
 ====
-##Able to:
+## Able to:
 - Describe the foundations that T-SQL is based on.
 - Describe the importance of using T-SQL in a relational way.
 - Use correct terminology when describing T-SQL related elements.
@@ -29,7 +29,7 @@ Notice the term distinct, a set has no duplicates.
 
 **Predicate** is an expression that when attributed to some object, makes a proposition either true or false.
 
-##Using Correct Terminology
+## Using Correct Terminology
 
 **Null** is a mark for a missing value
 
@@ -38,10 +38,10 @@ Lesson 2: Understanding Logical Query Processing
 
 T-SQL tem um lado fisíco e lógico. O lado **lógico** trata da interpretação conceitual da query, isto explica qual é o resultado correto da query.
 O lado **fisíco** é o processamento da query pelo mecanismo de banco de dados. O processamento fisíco deve produzir os resultados definidos pelo processamento lógico.
-Para atingir este objetivo o mecanismo do banco de dados pode aplicar otimizações. Otimizações podem reorganizar os passos da lógica de consulta (logical query) ou remover etapas. 
+Para atingir este objetivo o mecanismo do banco de dados pode aplicar otimizações. Otimizações podem reorganizar os passos da lógica de consulta (logical query) ou remover etapas.
 Esta reorganização pode acontecer somente se o **resultado** continua o mesmo pelo definido na consulta logica (logical query)
 
-##Able to:
+## Able to:
 - Understand the reasoning for the design of T-SQL.
 - Describe the main logical query processing phases.
 - Explain the reasons for some of the restrictions in T-SQL.
@@ -49,7 +49,7 @@ Esta reorganização pode acontecer somente se o **resultado** continua o mesmo 
 SQL standard descreve a iterpretação lógica da requisição declaratica (declarative request) o *"que"*.
 Mas é o mecanismo de banco de dados que deve descobrir como processar fisícamente a solicitação o *"como"*
 
-##Logical Query Processing Phases
+## Logical Query Processing Phases
 
 Principais cláusulas de consulta especificadas na ordem em que você deve digitá-las
 
@@ -119,7 +119,7 @@ empid  hiredate    country
 ```
 ### 3. Group Rows Based on the GROUP BY Clause
 
-Esta fase define um grupo para cada combinação distinta de valores nos elementos agrupados da tabela de entrada. 
+Esta fase define um grupo para cada combinação distinta de valores nos elementos agrupados da tabela de entrada.
 Em seguida, ele associa cada linha de entrada para o seu respectivo grupo.
 
 ```
@@ -136,8 +136,8 @@ USA      2004           8      USA     2004-03-05
 
 
 ### 4. Filter Rows Based on the HAVING Clause
-Esta fase também é responsável pela filtragem de dados com base em um predicado, 
-mas é avaliada depois que os dados tem sido agrupados, 
+Esta fase também é responsável pela filtragem de dados com base em um predicado,
+mas é avaliada depois que os dados tem sido agrupados,
 por isso ele é avaliado por grupo e filtros de grupos como um todo.
 
 Apenas os grupos para os quais o predicado é avaliado como verdadeiro são devolvidos a partir desta fase.
@@ -146,7 +146,7 @@ Significando: Filtre somente grupos ***country*** e ***hire year*** que possuem 
 ```sql
 HAVING COUNT(*) > 1
 ```
-Somente groups UK, 2003 and UK, 2004 
+Somente groups UK, 2003 and UK, 2004
 
 ```
 group    group          detail detail  detail
@@ -178,7 +178,7 @@ Se for uma *Grouped query* cada grupo será representado por uma *single row* no
 Segundo passo, aplicado se usada a cláusula ***DISTINCT***, neste caso são removidos os resultados duplicados.   
 O quinto processo retorna um ***relational result***, a ordem das rows não é garantida.
 
-Esta fase também atribui aliases para as colunas, sendo assim, 
+Esta fase também atribui aliases para as colunas, sendo assim,
 os aliases não estão visiveis para as cláusulas processadas nas fases anteirores *FROM, WHERE, GROUP BY e HAVING*
 
 >Quick Check   
@@ -193,7 +193,7 @@ os aliases não estão visiveis para as cláusulas processadas nas fases anteiro
 >2. Because all expressions that appear in the same logical query processing phase
 >are evaluated conceptually at the same point in time.
 
-###6. Handle Presentation Ordering
+### 6. Handle Presentation Ordering
 A sexta fase é aplicada a query possui um cláusula ***ORDER BY***. Esta fase retorna o resultado em uma
 ordem de apresentação especifica, de acordo com a expressão que aparece na lista ***ORDER BY***.   
 A query de exemplo indica que as result rows devem ser ordenadas primeiro por *country* (in ascending order by default),
@@ -206,19 +206,19 @@ UK       2004       2
 UK       2003       2
 ```
 
-#Chapter 2 Getting Started with the SELECT Statement
+# Chapter 2 Getting Started with the SELECT Statement
 
-##Exam objectives:
+## Exam objectives:
 1. Work with Data
   - Query data by using SELECT statements.
   - Implement data types.
 2. Modify Data
   - Work with functions.
 
-Lesson 1: Using the FROM and SELECT Clauses
-====
+## Lesson 1: Using the FROM and SELECT Clauses
 
-##The FROM Clause
+
+## The FROM Clause
 É a primeira cláusula a ser avaliada lógicamente em uma SELECT query e nela podemos:
 - Indicar a tabela em que a query será executada.
 - Aplicar operadores JOINS
@@ -230,10 +230,10 @@ ou
 <table> AS <alias>
 ```
 
-Quando atribuimos um *alias* para uma tabela estamos renomeando a tabela dentro do escopo atual da query, 
+Quando atribuimos um *alias* para uma tabela estamos renomeando a tabela dentro do escopo atual da query,
 isto torna o nome original da tabela inacessível dentro do escopo da query atual.
 
-##The SELECT Clause
+## The SELECT Clause
 Esta cláusula tem duas funções principais:
 - Avaliar as expressões que definem os atributos no resultado da query, dando-lhes *aliases* se necessário.
 - Usar a cláusula DISTINCT para para eliminar *rows* duplicadas, se necessário.
@@ -246,9 +246,14 @@ FROM HR.Employees;
 A cláusula **FROM** indica a *input table* da query. A cláusula **SELECT** projeta apenas três dos atributos
 da *input table* como os atributos que devem ser retornados para o resultado da query.
 
- 
+ ## Lesson 2: Working with Data Types and Built-in Functions
 
+Data types restrigem os dados que são suportados e também encapsulam comportamentos que podem operar sobre estes dados, também expoem estes dados atráves de operadores e outros meios.
 
+T-SQL suporta muitas funções embutidas que podem ser utilizadas para manipular dados. Porque as funções operam em valores de entrada e retornar valores de saída, uma compreensão de funções embutidas vai de mãos dadas com uma compreensão dos tipos de dados.
 
-
-
+After this lesson, you will be able to:
+- Choose the appropriate data type.
+- Choose a type for your keys.
+- Work with date and time, in addition to character data.
+- Work with the CASE expression and related functions.
