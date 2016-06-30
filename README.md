@@ -344,3 +344,17 @@ Utilizando uma solução com um tipo **INT** são necessários 4 bytes por valor
 
 ## Choosing a Data Type for Keys
 [Date and Time Data Types and Functions Transact-SQL] (http://msdn.microsoft.com/en-us/library/ms186724(v=SQL.110).aspx)
+
+## Current Date and Time
+Categoria de funções que retornam *date and time* atual.
+- GETDATE: Especifico do T-SQL. Retorna *date and time* como um tipo de dados DATETIME.
+- CURRENT_TIMESTAMP: Forma standard para retornar *date and time* atual.
+- GETUTCDATE: Retorna *date and time* atual em UTC termos do tipo DATETIME.
+- SYSDATETIME: Retorna valores mais precisos DATETIME2.
+- SYSUTCDATETIME: Retorna *date and time* atual em UTC com valores mais precisos DATETIME2.
+- SYSDATETIMEOFFSET: Retorna valores mais precisos DATETIMEOFFSET.
+
+Não exitem funções para retorno de somente *date* ou *time*, sendo necessário um **CAST** no **SYSDATETIME** para **DATE** ou **TIME**
+```sql
+CAST(SYSDATETIME() AS DATE)
+```
