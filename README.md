@@ -358,3 +358,30 @@ Não exitem funções para retorno de somente *date* ou *time*, sendo necessári
 ```sql
 CAST(SYSDATETIME() AS DATE)
 ```
+
+## Date and Time Parts
+Funções *date and time* que extraem parte de um valor *date and time* ou cosntroem valores *date and time* de partes.
+- DATEPART: Permite extrair uma parte desejada de um input do tipo *date and time* como *year*, *minute* ou *nanosecond* e retorna um resultado do tipo integer.
+```sql
+DATEPART(month, '20120212')
+# return 2
+```
+- YEAR, MONTH, and DAY: Abreviações da função DATEPART.
+- DATENAME: Extrai uma parte e retorna como *character string*. Esta função é do tipo *language dependent*.
+```sql
+DATENAME(month, '20120212')
+# session us_english return 'February'
+# session italian return 'febbraio'.
+```
+T-SQL fornece um conjunto de funções que cosntroem um valor *date and time* desejados de um input númerico. Esta função existe para cada um dos sei tipo *date and time*. DATEFROMPARTS, DATETIME2FROMPARTS, DATETIMEFROMPARTS, DATETIMEOFFSETFROMPARTS,
+SMALLDATETIMEFROMPARTS, and TIMEFROMPARTS.
+```sql
+DATEFROMPARTS(2012, 02, 12).
+```
+- EOMONTH: Calcula a data de fim de mês de acordo com a data de entrada.
+```sql
+# atual date February 12, 2012.
+EOMONTH(SYSDATETIME())
+# return '2012-02-29'
+```
+Esta função aceita um segundo argumento para indicar quantos mesês devem ser adicionados ao resultado.
