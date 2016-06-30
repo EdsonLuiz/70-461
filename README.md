@@ -325,3 +325,19 @@ resultado INT 2 e não NUMERIC 2.5
 o correto é realizar uma conversão explicita nos operandos
 CAST(col1 AS NUMERIC(12, 2)) / CAST(col2 AS NUMERIC(12, 2)).
 ```
+
+## Choosing a Data Type for Keys
+Quando *intelligent keys* são definidas na tabela não é necessário nem um cuidado, pois o *type* do atributo já foi definido.
+> *intelligent keys* Chaves criadas com base em um campo existente, como CPF.
+
+Quando utilizamos *surrogate keys* é necessário determinar o *type* apropriado de acordo com o mecanismo que vai gerar a *key value*
+> *Surrogate keys* chaves artificiais geralmente criadas por algum mecanismo do bando de dados ou sistema.
+
+As opções para gerar *surrogate keys* são:
+- Identity column property: Uma propriedade que automaticamente gera *keys* em um atributo do tipo númerico com uma escala de zero, qualquer tipo inteiro (**TINYINT, SMALLINT, INT, BIGINT**) ou **NUMERIC / DECIMAL** em uma escala de zero.
+- Sequence object: Objeto do banco de dados que pode fornecer valores de seqüência, como o *Identity* também suporta tipos inteiros em escala de zero.
+- Nonsequential GUIDs: pode gerar identificadores exclusivos globais não seqüenciais para serem armazenados em um atributo de um tipo UNIQUEIDENTIFIER. A função T-SQL para gerar isto é ```NEWID``` e pode ser invocada em uma *default expression* ou gerada por uma API no client. Os GUIDs são garantidos para serem únicos em espaço e tempo.
+- Sequential GUIDs: pode gerar GUIDs sequenciais dentro da máquina, usando
+a função T-SQL ```NEWSEQUENTIALID```.
+
+Utilizando uma solução com um tipo **INT** são necessários 4 bytes por valor, com **BIGINT** são necessários 8 bytes, **UNIQUEIDENTIFIER** necessitam 16 bytes.
