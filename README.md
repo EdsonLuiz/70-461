@@ -341,3 +341,6 @@ As opções para gerar *surrogate keys* são:
 a função T-SQL ```NEWSEQUENTIALID```.
 
 Utilizando uma solução com um tipo **INT** são necessários 4 bytes por valor, com **BIGINT** são necessários 8 bytes, **UNIQUEIDENTIFIER** necessitam 16 bytes.
+
+## Choosing a Data Type for Keys
+[Date and Time Data Types and Functions Transact-SQL] (http://msdn.microsoft.com/en-us/library/ms186724(v=SQL.110).aspx)
