@@ -480,3 +480,39 @@ LEFT('abcde', 3)
 RIGHT('abcde', 3)
 # return cde
 ```
+- CHARINDEX: devolve a posição da primeira ocorrência da string fornecida como o primeiro argumento dentro da string fornecida como o segundo argumento. Um terceiro argumento pode ser fornecido para indicar onde a função deve iniciar a procura.
+```sql
+CHARINDEX(' ','Itzik Ben-Gan')
+#Primeiro argumento é uma string vazia
+# O mecanismo procura a primeira ocorrência dentro da segunda string fornecida
+# return 6
+```
+
+Podemos combinar ou aninhar funções. Suponha uma tabela com um atributo *fullname* ('<firstname> <lastname>') é precisamos de uma expressão que recupere somente o primeiro nome.
+```sql
+LEFT(fullname, CHARINDEX(' ', fullname) - 1)
+```
+
+- PATINDEX: Similar ao *CHARINDEX*, mas procura por um pattnern (padrão). Utiliza um padrão similar ao *LIKE*.
+```sql
+PATINDEX('%[0-9]%', 'abcd123efgh')
+# procura a ocorrência de um digito entre 0 e 9 no segundo argumento
+# return 4
+```
+
+### String Length
+Funções que medem o tamanho de um valor de entrada.
+
+- LEN: Retorna o tamanho de uma string input em termos de numero de caracteres.
+```sql
+LEN(N'xyz')
+# return 3
+# esta função remove trailing spaces
+```
+
+- DATALENGTH: Retorna o tamanho de uma string input em termos de numeros de bytes.
+```sql
+DATALENGTH(N'xyz')
+# return 6
+# não remove trailing spaces
+```
