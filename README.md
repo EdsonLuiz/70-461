@@ -516,3 +516,39 @@ DATALENGTH(N'xyz')
 # return 6
 # não remove trailing spaces
 ```
+
+### String Alteration
+
+- REPLACE: O primeiro argumento é a string de entrada, o segundo argumento é o que deve ser substituido e o terceiro argumento pelo que deve ser substituido.
+
+```sql
+REPLACE('.1.2.3.', '.', '/')
+# input '.1.2.3.'
+# procura por (.)
+# substitui por (/)
+# return '/1/2/3/'
+```
+
+- REPLICATE: Replica uma string de entrada X vezes.
+
+```sql
+REPLICATE('0', 10)
+# return 0000000000
+```
+
+- STUFF: Primeiro argumento é a string de entrada, o segundo argumento é a posição de inicio, terceiro argumento o numero de caracteres que devem ser apagados e nesta posição são inseridos os caracteres do quarto argumento.
+
+```sql
+STUFF(',x,y,z', 1, 1, '')
+# return 'x,y,z'
+```
+
+### String Formatting
+
+- UPPER, LOWER, LTRIM, RTRIM
+```sql
+RTRIM(LTRIM(<input>))
+```
+
+- FORMAT: [FORMAT T-SQL e Formating Types] (http://msdn.microsoft.com/en-us/library/hh213505(v=sql.110).aspx and
+http://msdn.microsoft.com/en-us/library/26etazsy.aspx)
