@@ -463,3 +463,19 @@ empid  country  region  city      location
 8      USA      WA      Seattle   USA,WA,Seattle
 9      UK       NULL    London    UK,London
 ```
+
+### Substring Extraction and Position
+
+- SUBSTRING: Primeiro argumento é a string, o segundo argumento é a posição de start e o terceiro argumento é o tamanho.
+```sql
+SUBSTRING('abcde', 1, 3)
+# returns 'abc'.
+```
+
+- LEFT and RIGHT: Extrai um número solicitado de caracteres da esquerda ou direita da input string.
+```sql
+LEFT('abcde', 3)
+# return abcde
+RIGHT('abcde', 3)
+# return cde
+```
