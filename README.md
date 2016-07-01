@@ -403,3 +403,16 @@ Note que esta função olha apenas para as partes do que foi solicitado e acima 
 DATEDIFF(year, '20111231', '20120101')
 ```
 Esta função olha apenas para a parte do ano e, portanto, retorna 1. Ele não olha para o mês e dia.
+
+## Offset
+- SWITCHOFFSET: retorna um valor **datetimeoffset** que é alterado a partir do deslocamento de fuso horário armazenado.
+```sql
+SWITCHOFFSET(SYSDATETIMEOFFSET(), '-08:00')
+```
+
+apresentar a data atual e valor de tempo em termos de compensação "-08: 00 '. Se o sistema é compensado em, digamos, "-05: 00 ', a função vai compensar isso subtraindo três horas a partir do valor de entrada.
+> Esta parte deve ser revista, a tradução e o entendimento não ficaram claros.
+
+- TODATETIMEOFFSET: Usada para construir valores **DATETIMEOFFSET** com base em dois inputs. O primeiro valor é um *date and time* não *offset* e o segundo valor e um *offset*.
+> Revisar toda a parte de offset, entendimento não ficou claro.
+> pág 45.
