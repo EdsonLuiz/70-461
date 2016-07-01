@@ -416,3 +416,50 @@ apresentar a data atual e valor de tempo em termos de compensação "-08: 00 '. 
 - TODATETIMEOFFSET: Usada para construir valores **DATETIMEOFFSET** com base em dois inputs. O primeiro valor é um *date and time* não *offset* e o segundo valor e um *offset*.
 > Revisar toda a parte de offset, entendimento não ficou claro.
 > pág 45.
+
+## Character Functions
+T-SQL não oferece funções sofisticadas para manipulação de strings
+
+### Concatenation
+```sql
+SELECT empid, country, region, city,
+country + N',' + region + N',' + city AS location
+FROM HR.Employees;
+# Utilizando (+) operator
+# Existindo NULL o (+) retorna NULL
+```
+
+```
+empid  country  region  city      location
+------ -------- ------- --------- ----------------
+1      USA      WA      Seattle   USA,WA,Seattle
+2      USA      WA      Tacoma    USA,WA,Tacoma
+3      USA      WA      Kirkland  USA,WA,Kirkland
+4      USA      WA      Redmond   USA,WA,Redmond
+5      UK       NULL    London    NULL
+6      UK       NULL    London    NULL
+7      UK       NULL    London    NULL
+8      USA      WA      Seattle   USA,WA,Seattle
+9      UK       NULL    London    NULL
+```
+
+```sql
+SELECT empid, country, region, city,
+CONCAT(country, N',' + region, N',' + city) AS location
+FROM HR.Employees;
+# Neste caso NULL será substituido por uma string vazia.
+```
+
+```
+empid  country  region  city      location
+------ -------- ------- --------- ----------------
+1      USA      WA      Seattle   USA,WA,Seattle
+2      USA      WA      Tacoma    USA,WA,Tacoma
+3      USA      WA      Kirkland  USA,WA,Kirkland
+4      USA      WA      Redmond   USA,WA,Redmond
+5      UK       NULL    London    UK,London
+6      UK       NULL    London    UK,London
+7      UK       NULL    London    UK,London
+8      USA      WA      Seattle   USA,WA,Seattle
+9      UK       NULL    London    UK,London
+```
