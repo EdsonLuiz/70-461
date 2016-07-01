@@ -414,6 +414,7 @@ apresentar a data atual e valor de tempo em termos de compensação "-08: 00 '. 
 > Esta parte deve ser revista, a tradução e o entendimento não ficaram claros.
 
 - TODATETIMEOFFSET: Usada para construir valores **DATETIMEOFFSET** com base em dois inputs. O primeiro valor é um *date and time* não *offset* e o segundo valor e um *offset*.
+
 > Revisar toda a parte de offset, entendimento não ficou claro.
 > pág 45.
 
@@ -462,4 +463,20 @@ empid  country  region  city      location
 7      UK       NULL    London    UK,London
 8      USA      WA      Seattle   USA,WA,Seattle
 9      UK       NULL    London    UK,London
+```
+
+### Substring Extraction and Position
+
+- SUBSTRING: Primeiro argumento é a string, o segundo argumento é a posição de start e o terceiro argumento é o tamanho.
+```sql
+SUBSTRING('abcde', 1, 3)
+# returns 'abc'.
+```
+
+- LEFT and RIGHT: Extrai um número solicitado de caracteres da esquerda ou direita da input string.
+```sql
+LEFT('abcde', 3)
+# return abcde
+RIGHT('abcde', 3)
+# return cde
 ```
