@@ -385,3 +385,21 @@ EOMONTH(SYSDATETIME())
 # return '2012-02-29'
 ```
 Esta função aceita um segundo argumento para indicar quantos mesês devem ser adicionados ao resultado.
+
+## Add and Diff
+- DATEADD: Adiciona um número de unidades em uma parte específica de um tipo *date and time*.
+```sql
+DATEADD(year, 1, '20120212')
+#adds one year to the input date February 12, 2012.
+```
+- DATEDIFF: Ele retorna a diferença em termos de uma parte solicitada entre dois *date and time*.
+```sql
+DATEDIFF(day, '20110212', '20120212')
+# computes the difference in days between February 12, 2011 and February 12, 2012, returning the value 365
+```
+
+Note que esta função olha apenas para as partes do que foi solicitado e acima na hierarquia, não data e hora abaixo.
+```sql
+DATEDIFF(year, '20111231', '20120101')
+```
+Esta função olha apenas para a parte do ano e, portanto, retorna 1. Ele não olha para o mês e dia.
